@@ -1,3 +1,5 @@
+import { getCursor } from "../utils/getCursor"
+
 const defaultState = {
     todos: [],
 }
@@ -10,17 +12,29 @@ export const todoReducer = (state = defaultState, action) => {
     switch (action.type) {
         case ADD_TODO:
             return ({ ...state, todos: [...state.todos, action.payload] })
+
         case REMOVE_TODO:
             return ({ ...state, todos: state.todos.filter(todo => todo.id !== action.payload) })
+
         case UPDATE_TODO:
-            state.todos.forEach(todo => {
-                if (todo.id === action.payload.todo.id) {
-                    todo.todo += action.payload.event.nativeEvent.data
+            const [selectionStart, inputType] = getCursor(action)
+            let char = "";
+            let value = state.todos.filter(todo => todo.id === action.payload.todo.id)[0];
+
+            if (inputType === 'insertText') {
+                char = action.payload.event.nativeEvent.data;
+                value.todo = value.todo.slice(0, selectionStart - 1) + char + value.todo.slice(selectionStart - 1)
+            }
+
+            else {
+                if (inputType === 'deleteContentBackward' || inputType === 'deleteContentForward') {
+                    value.todo = value.todo.slice(0, selectionStart) + value.todo.slice(selectionStart + 1)
                 }
-            });
-            return ({ ...state })
+            }
 
-
+            return ({
+                ...state, todos: state.todos.map(todo => todo.id === value.id ? value : todo)
+            })
 
         default:
             return state
