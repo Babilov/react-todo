@@ -1,0 +1,21 @@
+.btn {
+    width: 25%;
+    height: 30px;
+    margin-top: 5px;
+    background-color: #0479FD;
+    color: white;
+    border: 0;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: .1s;
+    font-size: 1rem;
+}
+
+.btn:hover {
+    background-color: #014087;
+}
+
+.btn:active {
+    background-color: #013269;
+    font-size: 1.03rem;
+}

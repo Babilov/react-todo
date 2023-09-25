@@ -1,0 +1,48 @@
+.description {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    margin: 0 auto;
+    background-color: whitesmoke;
+    border-radius: 35px;
+    padding: 0 35px;
+}
+
+.description_h1 {
+    font-size: 5rem;
+    margin: 15px;
+    font-family: Andale, Mono, monospace;
+    font-weight: 500;
+}
+
+.description_h2 {
+    font-size: 1.3rem;
+    margin: 5px 0 28px;
+    font-weight: 400;
+}
+
+@media (min-width: 500px) and (max-width: 740px) {
+    .description_h1 {
+        font-size: 3rem;
+        margin: 15px 15px 5px;
+    }
+
+    .description_h2 {
+        font-size: 1rem;
+        margin: 5px 0 25px;
+        font-weight: 400;
+    }
+}
+
+@media (max-width: 499px) {
+    .description_h1 {
+        font-size: 2rem;
+        margin: 15px 15px 5px;
+    }
+
+    .description_h2 {
+        font-size: 0.95rem;
+        margin: 5px 0 25px;
+        font-weight: 400;
+    }
+}
