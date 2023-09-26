@@ -2,13 +2,16 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { addTodoAction } from "../../../store/todoReducer";
-import { setLastPageAction } from "../../../store/pageReducer";
+import { setPageAction } from "../../../store/pageReducer";
 import cl from "./ButtonStyles/AddTodoButton.module.css";
 
 export const AddTodoButton = ({ children, todo }) => {
   const dispatch = useDispatch();
 
   const todos = useSelector((store) => store.todo.todos);
+  const currentPage = useSelector((store) => store.page.currentPage);
+
+  const todosLength = todos.length + 1;
 
   const addTodo = (todo) => {
     if (todo) {
@@ -16,8 +19,16 @@ export const AddTodoButton = ({ children, todo }) => {
         todo,
         id: Date.now(),
       };
+
+      const action = {
+        todosLength,
+      };
+
       dispatch(addTodoAction(todoItem));
-      dispatch(setLastPageAction(todos.length));
+      currentPage * 5 < todosLength
+        ? (action.page = Math.ceil(todosLength / 5))
+        : (action.page = currentPage);
+      dispatch(setPageAction(action));
     }
   };
 

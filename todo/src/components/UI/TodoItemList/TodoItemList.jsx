@@ -7,14 +7,20 @@ import cl from "./TodoItemList.module.css";
 
 export const TodoItemList = () => {
   const todos = useSelector((store) => store.todo.todos);
+  const filtredTodos = useSelector((store) => store.todo.filtredTodos);
   const page = useSelector((store) => store.page.currentPage);
+
+  const filtredTodosLength = filtredTodos.length;
+
+  const todoList = filtredTodosLength ? filtredTodos : todos;
+
   return (
     <div>
-      {todos.length > 0 ? (
+      {todos.length ? (
         <div className={cl.todoItemsWithPagination}>
           <div>
-            {todos.slice(page * 5 - 5, page * 5).map((todo) => (
-              <TodoItem todo={todo}></TodoItem>
+            {todoList.slice(page * 5 - 5, page * 5).map((todo) => (
+              <TodoItem key={todo.id} todo={todo}></TodoItem>
             ))}
           </div>
           <MyPagination />

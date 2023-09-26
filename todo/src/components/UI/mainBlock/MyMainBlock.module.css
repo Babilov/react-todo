@@ -1,35 +1,43 @@
 .mainBlock {
-    font-size: 1.5rem;
-    display: flex;
-    justify-content: space-between;
-    width: 60%;
-    margin: 0 auto;
-    margin-top: 25px;
-    padding: 0 15px;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.5rem;
+  width: 60%;
+  margin: 0 auto;
+  padding: 25px 0;
+}
+
+.mainActionBlock {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 25px;
+  padding: 0 15px;
 }
 
 .todoBlock {
-    flex: 0.4 0 15em;
-    text-align: start;
+  flex: 0.4 0 15em;
+  text-align: start;
 }
 
 .inputDescriptionBlock {
-    flex: 0.4 0 10em;
-    text-align: start;
-    margin-right: 50px;
+  flex: 0.4 0 10em;
+  text-align: start;
+  margin-right: 50px;
 }
 
 .inputBlock {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 h5 {
-    margin-bottom: 8px;
+  margin-bottom: 8px;
 }
 
 @media (min-width: 1601px) {
-    .mainBlock {
-        font-size: 2rem;
-    }
+  .mainBlock {
+    font-size: 2rem;
+  }
 }

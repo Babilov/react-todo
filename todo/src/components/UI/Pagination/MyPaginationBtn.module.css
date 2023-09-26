@@ -1,4 +1,8 @@
 .disabled {
-    pointer-events: none;
-    color: gray;
+  pointer-events: none;
+  color: gray;
+}
+
+.btn {
+  cursor: pointer;
 }

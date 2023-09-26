@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import {
-  previousPageAction,
-  setFirstPageAction,
-  setLastPageAction,
-} from "../../../store/pageReducer";
+import { setPageAction } from "../../../store/pageReducer";
 import { removeTodoAction, updateTodoAction } from "../../../store/todoReducer";
 import { RemoveTodoButton } from "../Button/RemoveTodoButton";
 import { ChangeTodoButton } from "../Button/ChangeTodoButton";
@@ -16,10 +12,11 @@ export const TodoItem = ({ todo }) => {
   const dispatch = useDispatch();
 
   const todos = useSelector((store) => store.todo.todos);
+  const currentPage = useSelector((store) => store.page.currentPage);
 
   const [isEdit, setIsEdit] = useState(false);
 
-  const todoTotal = todos.length - 1;
+  const todosLength = todos.length - 1;
 
   const handleChange = (actionData) => {
     dispatch(updateTodoAction(actionData));
@@ -28,11 +25,13 @@ export const TodoItem = ({ todo }) => {
   const handleBlur = () => {
     if (todo.todo.length === 0) {
       dispatch(removeTodoAction(todo.id));
-      dispatch(setLastPageAction(todoTotal - 1));
-      if (todoTotal % 5 === 0) {
-        dispatch(previousPageAction());
-      }
-      dispatch(setFirstPageAction());
+      const action = {
+        todosLength: todosLength,
+      };
+      Math.ceil(todosLength / 5) < currentPage
+        ? (action.page = currentPage - 1)
+        : (action.page = currentPage);
+      dispatch(setPageAction(action));
     }
     setIsEdit(false);
   };
@@ -42,7 +41,7 @@ export const TodoItem = ({ todo }) => {
   };
 
   return (
-    <div className={cl.todoItem} key={todo.id}>
+    <div className={cl.todoItem}>
       {isEdit ? (
         <input
           onChange={(event) => handleChange({ event, todo })}

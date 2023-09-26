@@ -2,11 +2,13 @@ import { getCursor } from "../utils/getCursor";
 
 const defaultState = {
   todos: [],
+  filtredTodos: [],
 };
 
 const ADD_TODO = "ADD_TODO";
 const REMOVE_TODO = "REMOVE_TODO";
 const UPDATE_TODO = "UPDATE_TODO";
+const FILTER_TODO = "FILTER_TODO";
 
 export const todoReducer = (state = defaultState, action) => {
   switch (action.type) {
@@ -48,6 +50,21 @@ export const todoReducer = (state = defaultState, action) => {
         todos: state.todos.map((todo) => (todo.id === value.id ? value : todo)),
       };
 
+    case FILTER_TODO:
+      if (action.payload) {
+        return {
+          ...state,
+          filtredTodos: state.todos.filter(
+            (todo) => todo.todo.indexOf(action.payload) !== -1
+          ),
+        };
+      } else {
+        return {
+          ...state,
+          filtredTodos: [],
+        };
+      }
+
     default:
       return state;
   }
@@ -56,3 +73,4 @@ export const todoReducer = (state = defaultState, action) => {
 export const addTodoAction = (payload) => ({ type: ADD_TODO, payload });
 export const removeTodoAction = (payload) => ({ type: REMOVE_TODO, payload });
 export const updateTodoAction = (payload) => ({ type: UPDATE_TODO, payload });
+export const filterTodoAction = (payload) => ({ type: FILTER_TODO, payload });

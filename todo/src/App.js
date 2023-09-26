@@ -1,7 +1,6 @@
-import './App.css';
-import { MyDescription } from './components/UI/description/MyDescription';
-import { MyMainBlock } from './components/UI/mainBlock/MyMainBlock';
-
+import "./App.css";
+import { MyDescription } from "./components/UI/Description/MyDescription";
+import { MyMainBlock } from "./components/UI/MainBlock/MyMainBlock";
 
 function App() {
   return (

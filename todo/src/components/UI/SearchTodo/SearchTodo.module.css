@@ -1,0 +1,17 @@
+.searchBlcok {
+  padding: 0 15px;
+}
+
+.search {
+  width: 100%;
+  height: 30px;
+  margin-bottom: 5px;
+  border-radius: 3px;
+  border: 1px solid hsl(210, 100%, 60%);
+  padding-left: 10px;
+  text-align: center;
+}
+
+h5 {
+  text-align: start;
+}
