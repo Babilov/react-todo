@@ -11,7 +11,6 @@ export const TodoItemList = () => {
   const page = useSelector((store) => store.page.currentPage);
 
   const filtredTodosLength = filtredTodos.length;
-
   const todoList = filtredTodosLength ? filtredTodos : todos;
 
   return (

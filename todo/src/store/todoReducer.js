@@ -1,8 +1,9 @@
-import { getCursor } from "../utils/getCursor";
+import { getCursorPosition } from "../utils/getCursorPosition";
 
 const defaultState = {
   todos: [],
   filtredTodos: [],
+  filter: "",
 };
 
 const ADD_TODO = "ADD_TODO";
@@ -13,16 +14,30 @@ const FILTER_TODO = "FILTER_TODO";
 export const todoReducer = (state = defaultState, action) => {
   switch (action.type) {
     case ADD_TODO:
-      return { ...state, todos: [...state.todos, action.payload] };
+      if (!state.filter || action.payload.todo.indexOf(state.filter) === -1) {
+        return {
+          ...state,
+          todos: [...state.todos, action.payload],
+        };
+      } else {
+        return {
+          ...state,
+          todos: [...state.todos, action.payload],
+          filtredTodos: [...state.filtredTodos, action.payload],
+        };
+      }
 
     case REMOVE_TODO:
       return {
         ...state,
         todos: state.todos.filter((todo) => todo.id !== action.payload),
+        filtredTodos: state.filtredTodos.filter(
+          (todo) => todo.id !== action.payload
+        ),
       };
 
     case UPDATE_TODO:
-      const [selectionStart, inputType] = getCursor(action);
+      const [selectionStart, inputType] = getCursorPosition(action);
       let char = "";
       let value = state.todos.filter(
         (todo) => todo.id === action.payload.todo.id
@@ -48,6 +63,9 @@ export const todoReducer = (state = defaultState, action) => {
       return {
         ...state,
         todos: state.todos.map((todo) => (todo.id === value.id ? value : todo)),
+        filtredTodos: state.filtredTodos.map((todo) =>
+          todo.id === value.id ? value : todo
+        ),
       };
 
     case FILTER_TODO:
@@ -57,11 +75,13 @@ export const todoReducer = (state = defaultState, action) => {
           filtredTodos: state.todos.filter(
             (todo) => todo.todo.indexOf(action.payload) !== -1
           ),
+          filter: action.payload,
         };
       } else {
         return {
           ...state,
           filtredTodos: [],
+          filter: null,
         };
       }
 

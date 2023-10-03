@@ -9,9 +9,10 @@ export const RemoveTodoButton = ({ todo }) => {
   const dispatch = useDispatch();
 
   const todos = useSelector((store) => store.todo.todos);
+  const filtredTodos = useSelector((store) => store.todo.filtredTodos);
   const currentPage = useSelector((store) => store.page.currentPage);
 
-  const todosLength = todos.length - 1;
+  const todosLength = filtredTodos ? filtredTodos.length - 1 : todos.length - 1;
 
   const handleRemove = () => {
     dispatch(removeTodoAction(todo.id));

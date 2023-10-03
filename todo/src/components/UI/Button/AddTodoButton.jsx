@@ -9,9 +9,12 @@ export const AddTodoButton = ({ children, todo }) => {
   const dispatch = useDispatch();
 
   const todos = useSelector((store) => store.todo.todos);
+  const filtredTodos = useSelector((store) => store.todo.filtredTodos);
   const currentPage = useSelector((store) => store.page.currentPage);
 
-  const todosLength = todos.length + 1;
+  const todosLength = filtredTodos.length
+    ? filtredTodos.length + 1
+    : todos.length + 1;
 
   const addTodo = (todo) => {
     if (todo) {

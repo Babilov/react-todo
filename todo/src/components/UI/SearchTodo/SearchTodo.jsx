@@ -6,16 +6,17 @@ import { filterTodoAction } from "../../../store/todoReducer";
 import cl from "./SearchTodo.module.css";
 
 export const SearchTodo = () => {
-  const handleChange = () => {
-    dispatch(filterTodoAction(ref.current.value));
-    dispatch(setPageAction(1));
-  };
-
   const dispatch = useDispatch();
 
-  const todos = useSelector((store) => store.todo.todos);
+  const filtredTodos = useSelector((store) => store.todo.filtredTodos);
 
   const ref = useRef();
+
+  const handleChange = () => {
+    dispatch(filterTodoAction(ref.current.value));
+    const todosLength = filtredTodos.length;
+    dispatch(setPageAction({ page: 1, todosLength }));
+  };
 
   return (
     <div className={cl.searchBlcok}>

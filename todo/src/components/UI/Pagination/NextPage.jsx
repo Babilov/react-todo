@@ -9,9 +9,12 @@ export const NextPage = () => {
 
   const isLastPage = useSelector((store) => store.page.isLastPage);
   const todos = useSelector((store) => store.todo.todos);
+  const filtredTodos = useSelector((store) => store.todo.filtredTodos);
+
+  const todosLength = filtredTodos.length ? filtredTodos.length : todos.length;
 
   const nextPage = () => {
-    dispatch(nextPageAction(todos.length));
+    dispatch(nextPageAction(todosLength));
   };
 
   return (
